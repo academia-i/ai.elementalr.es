@@ -1,0 +1,22 @@
+Package: ai.elementalr.es
+Title: Funciones elementales para manipular datos, de Academia I (en español)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Daniel M.",
+           family = "Gimenez",
+           role = c("aut", "cre"),
+           email = "daniel.gimenez@academia-i.com",
+           comment = c(ORCID = "https://orcid.org/0000-0002-1536-868X"))
+Description: Desarrollado por Academia I para facilitar el trabajo con
+    dataframes y la manipulación de datos. Sus funciones simplifican el código
+    de operaciones cotidianas para facilitar el flujo de la programación con
+    nombres y argumentos fácilmente recordables y escritos completamente en
+    castellano. There is an English version; check at
+    https://github.com/academia-i/ai.elementalr.en  
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+URL: https://academia-i.com/desarrollo/r/elementalr
+BugReports: https://github.com/academia-i/ai.elementalr.es/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
