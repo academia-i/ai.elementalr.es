@@ -1,5 +1,16 @@
 `%notin%` <- Negate(`%in%`)
 
+#' Determinar qué tipo de objeto con precisión
+#'
+#' @param x
+#' @param ...
+#'
+#' @return vector
+#' @export
+#'
+#' @examples
+#' bbdd <- data(mtcars)
+#' que.es(bbdd)
 que.es <- function(x, ...) {
   if (!exists(as.character(substitute(x)))) {
     cat("No existe. No es un objeto definido o asignado. Def\u00ednelo primero con \"x <- algo \" ")
@@ -41,6 +52,18 @@ que.es <- function(x, ...) {
   }
 }
 
+#' Incorporar objetos a una lista
+#'
+#' @param lista
+#' @param obj
+#' @param pos
+#' @param rm
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
 listar <- function(lista, obj, pos = 0, rm = T, ...) {
 
   if (pos %notin% c(1, 0, "final", "inicio")) {
