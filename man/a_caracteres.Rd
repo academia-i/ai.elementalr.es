@@ -4,22 +4,40 @@
 \alias{a_caracteres}
 \title{Convertir columnas de un data frame a caracteres}
 \usage{
-a_caracteres(df, columnas, ...)
+a_caracteres(df, columnas)
 }
 \arguments{
-\item{...}{}
+\item{df}{\strong{Un data frame}. La función admite sólo data frames, no objetos
+derivados, como tibles.}
+
+\item{columnas}{\strong{Un vector con las columnas a transformar}. Puede ser
+vector numérico con el índice de las columnas (\code{columnas = 2:4}) o
+vector de caracteres con el nombre de las columnas
+(\verb{columnas = c("a", "b"})).}
 }
 \value{
-
+Un dataframe con las columnas del argumento convertidas a vectores
+de caracteres.
 }
 \description{
-Convertir columnas de un data frame a caracteres
+Convierte las columnas de un data frame a vectores de caracteres.
+}
+\details{
+Sólo se admiten objetos del tipo data frame en el argumento \code{df}. Las
+\code{tibles} u otros objetos derivados de data frames podrían arrojar error. La
+función intenta coercionar el objeto ingresado en el argumento \code{df} a la
+clase \verb{data frame} antes de iniciar cualquier transformación.
 }
 \examples{
-# Las columnas se pueden ingresar por su índice...
-mtcars <- a_caracteres(df = mtcars, columnas = 3:7)
+# Las columnas se pueden ingresar por su índice:
+  mtcars <- a_caracteres(df = mtcars, columnas = 3:7)
 
 # O también por el nombre:
-mtcars <- a_caracteres(df = mtcars, columnas = c("hp", "wt", "am"))
-
+  mtcars <- a_caracteres(df = mtcars, columnas = c("hp", "wt", "am"))
 }
+\seealso{
+Other funciones para transformar columnas de data frames: 
+\code{\link{a_cero}()},
+\code{\link{a_numeros}()}
+}
+\concept{funciones para transformar columnas de data frames}

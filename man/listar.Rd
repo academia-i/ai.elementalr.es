@@ -4,14 +4,54 @@
 \alias{listar}
 \title{Incorporar objetos a una lista}
 \usage{
-listar(lista, obj, pos = 0, rm = T, ...)
+listar(lista, obj, pos = 0, rm = T)
 }
 \arguments{
-\item{...}{}
+\item{lista}{\strong{Una lista}. Es necesario que exista previamente en el entorno
+global (GlobalEnvir).}
+
+\item{obj}{\strong{Objeto de cualquier tipo}. Es necesario que exista previamente en
+el entorno global (GlobalEnvir).}
+
+\item{pos}{\strong{Un número}. Puede asumir dos valores:
+\strong{0} para que el objeto quede al final de la lista (\emph{predeterminado}:
+\verb{lista[[length(lista)]])}; o
+\strong{1} para que quede en el primer lugar de la lista (\code{lista[[1]]}).}
+
+\item{rm}{\strong{Valor lógico}. Si es \code{TRUE} (\emph{predeterminado}), el objeto será eliminado del entorno
+global (GlobalEnvir) después de ser agregado a la lista. Si es \code{FALSE},
+el objeto será añadido a la lista sin ser eliminado del entorno global.}
 }
 \value{
-
+Una \emph{\code{lista}} con el \emph{\code{obj}} incorporado en la posición indicada con el
+argumento \emph{\code{pos}}.
 }
 \description{
-Incorporar objetos a una lista
+Sirve para agregar objetos a una lista de forma rápida controlando la posición
+}
+\details{
+Si \code{lista} no existe en el entorno global cuado se aplica la
+función, arrojará error. Debe crearse antes. Puede ser una lista que ya
+tenga otros objetos o una lista vacía: \code{lista <- list()}.
+
+Si \code{obj} no existe antes de aplicar la función, arrojará error. Debe
+existir antes en el entorno global.
+
+Si \code{listar()} se usa dentro de una función personalizada, debe definirse
+\code{rm = FALSE}. De lo contrario, arrojará error.
+}
+\examples{
+mis_cosas <- list(
+   libros = c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's Ashes"),
+   vinilos = c("Abbey Road", "Kind of blue", "Nevermind",
+    "Bigger, better, faster, more", "Parte de la religión")
+  )
+
+computadoras <- c("Notebook", "Workstation", "Raspberry Pi")
+
+# Agregando el objeto al final de la lista y conservándolo en el entorno global:
+  mis_cosas <- listar(mis_cosas, computadoras, pos = 0, rm = FALSE)
+
+# Agregando el objeto al primer lugar de la lista y eliminándolo del entorno global:
+  mis_cosas <- listar(mis_cosas, computadoras, pos = 1, rm = TRUE)
 }

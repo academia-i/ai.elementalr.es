@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "https://orcid.org/0000-0002-1536-868X"))
 Description: Desarrollado por Academia I para facilitar el trabajo con
     dataframes y la manipulación de datos. Sus funciones simplifican el código
-    de operaciones cotidianas para facilitar el flujo de la programación con
+    de operaciones cotidianas para el flujo de la programación con
     nombres y argumentos fácilmente recordables y escritos completamente en
     castellano. There is an English version; check at
     https://github.com/academia-i/ai.elementalr.en  

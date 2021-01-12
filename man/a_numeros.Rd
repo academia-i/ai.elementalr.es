@@ -4,21 +4,58 @@
 \alias{a_numeros}
 \title{Convertir columnas de un data frame a números}
 \usage{
-a_numeros(df, columnas, ...)
+a_numeros(df, columnas)
 }
 \arguments{
-\item{...}{}
+\item{df}{\strong{Un data frame}. La función admite sólo data frames, no objetos
+derivados, como tibles.}
+
+\item{columnas}{\strong{Un vector con las columnas a transformar}. Puede ser
+vector numérico con el índice de las columnas (\code{columnas = 2:4}) o
+vector de caracteres con el nombre de las columnas
+(\verb{columnas = c("a", "b"})).}
 }
 \value{
-
+Un dataframe con las columnas del argumento convertidas a vectores
+numéricos. Si las columnas tienen caracteres y no números, sus valores serán
+convertidos a NAs.
 }
 \description{
-Convertir columnas de un data frame a números
+Convierte las columnas de un data frame a vectores numéricos.
+}
+\details{
+Muchas operaciones aplicadas a data frames, fundamentalmente a
+través de las funciones de \code{dplyr}, transforman las columnas numéricas a
+columnas de caracteres. Esta función convierte las columnas de caracteres en
+columnas numéricas.
+
+El requisito para el funcionamiento de esta función: que \strong{todos los elementos
+o ítems del vector de la columna tengan sólo números entre las comillas}. Si
+existe al menos un ítem o elemento del vector con al menos un caracter no
+numérico, como una coma, un punto o un signo monetario ($, €, £, 元), la
+función transformará todos los valores del vector en NAs.
+
+Sólo se admiten objetos del tipo data frame en el argumento \code{df}. Las
+\code{tibles} u otros objetos derivados de data frames podrían arrojar error. La
+función intenta coercionar el objeto ingresado en el argumento \code{df} a la
+clase \verb{data frame} antes de iniciar cualquier transformación.
 }
 \examples{
-# Teniendo un data frame con columnas que tienen números pero, por diversas
- circunstancias, como vectores de caracteres....
-cuadro = data.frame (a = as.character(c(1:5)), b = as.character(c(6:10)))
-# a_numeros generará
-# cuadro <- a_numeros(cuadro, 1:2)
+cuadro <- data.frame (a = as.character(c(1:5)), b = as.character(c(6:10)))
+
+# La función convertirá las columnas señaladas en el argumento a formato numérico:
+  cuadro <- a_numeros(df = cuadro, columnas = 1:2)
+
+# También es posible aplicar la función a llamando las columnas por sus nombres:
+  cuadro <- a_numeros(cuadro, c("a", "b"))
+
+# Las columnas con vectores de caracteres que tengan algo más que números generará NAs.
+  cuadro <- cbind(cuadro, letters[1:5])
+  cuadro <- a_numeros(cuadro, 3) # La tercera columna, de caracteres, queda sólo con NAs
 }
+\seealso{
+Other funciones para transformar columnas de data frames: 
+\code{\link{a_caracteres}()},
+\code{\link{a_cero}()}
+}
+\concept{funciones para transformar columnas de data frames}
