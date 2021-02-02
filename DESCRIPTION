@@ -12,11 +12,24 @@ Description: Desarrollado por Academia I para facilitar el trabajo con
     de operaciones cotidianas para el flujo de la programación con
     nombres y argumentos fácilmente recordables y escritos completamente en
     castellano. There is an English version; check at
-    https://github.com/academia-i/ai.elementalr.en  
-License: GPL (>= 3)
+    <https://github.com/academia-i/ai.elementalr.en>.
+License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://academia-i.com/desarrollo/r/elementalr
 BugReports: https://github.com/academia-i/ai.elementalr.es/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown,
+    tidyverse,
+    dplyr,
+    magrittr,
+    tidyr,
+    tibble,
+    scales,
+    qpdf,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

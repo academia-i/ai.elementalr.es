@@ -7,16 +7,15 @@
 listar(lista, obj, pos = 0, rm = T)
 }
 \arguments{
-\item{lista}{\strong{Una lista}. Es necesario que exista previamente en el entorno
-global (GlobalEnvir).}
+\item{lista}{\strong{Una lista}. Si la lista no existe en el entorno global
+(GlobalEnv), la función creará una y le asignará el obejto.}
 
 \item{obj}{\strong{Objeto de cualquier tipo}. Es necesario que exista previamente en
-el entorno global (GlobalEnvir).}
+el entorno global (GlobalEnv).}
 
-\item{pos}{\strong{Un número}. Puede asumir dos valores:
-\strong{0} para que el objeto quede al final de la lista (\emph{predeterminado}:
-\verb{lista[[length(lista)]])}; o
-\strong{1} para que quede en el primer lugar de la lista (\code{lista[[1]]}).}
+\item{pos}{\strong{Un número}. Puede asumir dos valores: \strong{0} para que el objeto
+quede al final de la lista (\emph{predeterminado}); o \strong{1} para que quede en el
+primer lugar de la lista.}
 
 \item{rm}{\strong{Valor lógico}. Si es \code{TRUE} (\emph{predeterminado}), el objeto será eliminado del entorno
 global (GlobalEnvir) después de ser agregado a la lista. Si es \code{FALSE},
@@ -27,13 +26,10 @@ Una \emph{\code{lista}} con el \emph{\code{obj}} incorporado en la posición ind
 argumento \emph{\code{pos}}.
 }
 \description{
-Sirve para agregar objetos a una lista de forma rápida controlando la posición
+Agregar objetos a una lista de forma rápida controlando la
+posición y qué pasa con el objeto en el entorno global (GlobalEnv).
 }
 \details{
-Si \code{lista} no existe en el entorno global cuado se aplica la
-función, arrojará error. Debe crearse antes. Puede ser una lista que ya
-tenga otros objetos o una lista vacía: \code{lista <- list()}.
-
 Si \code{obj} no existe antes de aplicar la función, arrojará error. Debe
 existir antes en el entorno global.
 

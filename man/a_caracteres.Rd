@@ -38,6 +38,8 @@ clase \verb{data frame} antes de iniciar cualquier transformación.
 \seealso{
 Other funciones para transformar columnas de data frames: 
 \code{\link{a_cero}()},
-\code{\link{a_numeros}()}
+\code{\link{a_nas}()},
+\code{\link{a_numeros}()},
+\code{\link{formatear_num}()}
 }
 \concept{funciones para transformar columnas de data frames}

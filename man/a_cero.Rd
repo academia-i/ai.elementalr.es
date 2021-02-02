@@ -2,9 +2,9 @@
 % Please edit documentation in R/transformar.R
 \name{a_cero}
 \alias{a_cero}
-\title{Convertir los NA del data frame a ceros en las columnas seleccionadas}
+\title{Convertir los NAs de las columnas seleccionadas a ceros}
 \usage{
-a_cero(df, columnas)
+a_cero(df, columnas = 1:NCOL(df))
 }
 \arguments{
 \item{df}{\strong{Un data frame}. La función admite sólo data frames, no objetos
@@ -17,17 +17,14 @@ vector de caracteres con el nombre de las columnas
 }
 \value{
 Un dataframe con los valores NA de las columnas del argumento
-convertidas a valores cero (0).
+convertidas a valores cero (0). Si las columnas numéricas obtendrán 0
+numéricos; las columnas de caracteres obtendrán 0 como caracteres ("0").
 }
 \description{
 Convierte los valores NA de las columnas de un data frame a
 ceros.
 }
 \details{
-Para que esta función no arroje errores, es necesario convertir
-antes las columnas a formato numérico. Puede usarse la función
-\code{\link{a_numeros}}.
-
 Sólo se admiten objetos del tipo data frame en el argumento \code{df}. Las
 \code{tibles} u otros objetos derivados de data frames podrían arrojar error. La
 función intenta coercionar el objeto ingresado en el argumento \code{df} a la
@@ -43,6 +40,8 @@ datos <- data.frame(a = c(10,15,NA, 25), b = c(NA, NA, 30, 40))
 \seealso{
 Other funciones para transformar columnas de data frames: 
 \code{\link{a_caracteres}()},
-\code{\link{a_numeros}()}
+\code{\link{a_nas}()},
+\code{\link{a_numeros}()},
+\code{\link{formatear_num}()}
 }
 \concept{funciones para transformar columnas de data frames}

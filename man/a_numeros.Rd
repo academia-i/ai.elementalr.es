@@ -17,8 +17,9 @@ vector de caracteres con el nombre de las columnas
 }
 \value{
 Un dataframe con las columnas del argumento convertidas a vectores
-numéricos. Si las columnas tienen caracteres y no números, sus valores serán
-convertidos a NAs.
+numéricos. Si las columnas ingresadas a la función tienen caracteres además
+de números (por ejemplo, punto, comas o símbolos de monedas), sus valores
+serán convertidos a NAs.
 }
 \description{
 Convierte las columnas de un data frame a vectores numéricos.
@@ -56,6 +57,8 @@ cuadro <- data.frame (a = as.character(c(1:5)), b = as.character(c(6:10)))
 \seealso{
 Other funciones para transformar columnas de data frames: 
 \code{\link{a_caracteres}()},
-\code{\link{a_cero}()}
+\code{\link{a_cero}()},
+\code{\link{a_nas}()},
+\code{\link{formatear_num}()}
 }
 \concept{funciones para transformar columnas de data frames}

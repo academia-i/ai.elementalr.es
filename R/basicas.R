@@ -1,4 +1,40 @@
-`%notin%` <- Negate(`%in%`)
+#' ¿No está en un vector?
+#'
+#' @description Determina si un valor o elemento dado **no se encuentra** en un
+#'   vector. Es la negación de la función \code{\link{%in%}}. La
+#'   función `%in%` arroja `TRUE` si el elemento está en el vector. En cambio,
+#'   esta función `%notin%` arroja `TRUE` si el elemento **no se encuentra** en
+#'   el vector.
+#'
+#' @param x **Valor o elemento numérico o de caracter**. Es el que se requiere
+#'   determinar si se encuentra en el vector `y`.
+#' @param y **Vector**. Es al que se pregunta si no contiene el valor o elemento
+#'   `x`.
+#'
+#' @return Valor lógico **`TRUE`** o **`FALSE`**.
+#'
+#' @details El paquete `Hmisc` contiene la función \code{\link[Hmisc]{%nin%}}
+#'  que hace la misma operación: determinar si un valor o elemento no se
+#'  encuentra en un vector. Su nombre, sin embargo, es poco intuitivo y se
+#'  demora el doble de tiempo en ejecutar la misma operación.
+#'
+#' @export
+#'
+#' @examples
+#' # Para saber si un valor o elemento de una función **si está** en un vector:
+#'   "a" %in% letters # Resultado: TRUE, dado que "a" si está en el vector.
+#'
+#' # La función `%notin%` arroja el resultado contrario:
+#'   "a" %notin% letters # Resultado: FALSE
+#'
+#' # Al igual que `%in%`, `%notin%` tiene gran utilidad en el control de flujo:
+#'   dias <- weekdays(x=as.Date(seq(6), origin="1950-01-01"))
+#'   if ("domingo" %notin% dias) dias <- c(dias, "domingo")
+`%notin%` <- function(x,y) {
+
+  ! x %in% y
+
+  }
 
 #' Determinar el tipo de objeto
 #'
@@ -71,25 +107,21 @@ que.es <- function(x) {
 
 #' Incorporar objetos a una lista
 #'
-#' @description Sirve para agregar objetos a una lista de forma rápida controlando la posición
+#' @description Agregar objetos a una lista de forma rápida controlando la
+#'   posición y qué pasa con el objeto en el entorno global (GlobalEnv).
 #'
-#' @param lista **Una lista**. Es necesario que exista previamente en el entorno
-#'   global (GlobalEnvir).
+#' @param lista **Una lista**. Si la lista no existe en el entorno global
+#' (GlobalEnv), la función creará una y le asignará el obejto.
 #' @param obj **Objeto de cualquier tipo**. Es necesario que exista previamente en
-#'   el entorno global (GlobalEnvir).
-#' @param pos **Un número**. Puede asumir dos valores:
-#'      **0** para que el objeto quede al final de la lista (*predeterminado*:
-#'      `lista[[length(lista)]])`; o
-#'      **1** para que quede en el primer lugar de la lista (`lista[[1]]`).
+#'   el entorno global (GlobalEnv).
+#' @param pos **Un número**. Puede asumir dos valores: **0** para que el objeto
+#'   quede al final de la lista (*predeterminado*); o **1** para que quede en el
+#'   primer lugar de la lista.
 #' @param rm **Valor lógico**. Si es `TRUE` (*predeterminado*), el objeto será eliminado del entorno
 #'   global (GlobalEnvir) después de ser agregado a la lista. Si es `FALSE`,
 #'   el objeto será añadido a la lista sin ser eliminado del entorno global.
 #'
-#' @details Si `lista` no existe en el entorno global cuado se aplica la
-#'   función, arrojará error. Debe crearse antes. Puede ser una lista que ya
-#'   tenga otros objetos o una lista vacía: `lista <- list()`.
-#'
-#'   Si `obj` no existe antes de aplicar la función, arrojará error. Debe
+#' @details Si `obj` no existe antes de aplicar la función, arrojará error. Debe
 #'   existir antes en el entorno global.
 #'
 #'   Si `listar()` se usa dentro de una función personalizada, debe definirse
@@ -115,21 +147,42 @@ que.es <- function(x) {
 #'   mis_cosas <- listar(mis_cosas, computadoras, pos = 1, rm = TRUE)
 listar <- function(lista, obj, pos = 0, rm = T) {
 
+  if(!exists(deparse(substitute(lista)))) {
+
+    listita <- list()
+
+  } else {
+
+    listita <- lista
+
+  }
+
   if (pos %notin% c(1, 0, "final", "inicio")) {
     stop("La posici\u00f3n en la lista s\u00f3lo admite cuatro valores: \"1\" o \"inicio\" para agregar el objeto al principio de la lista; \"0\" o \"final\" para agregarlo al final. Si no ingresas el argumento, el objeto se agrega al final.")
   }
 
   if (pos %in% c(0, "final")) {
-    lista <- c(lista, list(obj))
-    names(lista)[length(lista)] <- deparse(substitute(obj))
+    listita <- c(listita, list(obj))
+    names(listita)[length(listita)] <- deparse(substitute(obj))
   } else if (pos %in% c(1, "inicio")) {
-    lista <- c(list(obj), lista)
-    names(lista)[1] <- deparse(substitute(obj))
+    listita <- c(list(obj), listita)
+    names(listita)[1] <- deparse(substitute(obj))
   }
 
   if (isTRUE(rm)) {
     rm(list = deparse(substitute(obj)), envir = .GlobalEnv)
   }
 
-  return(lista)
+  if(!exists(deparse(substitute(lista)))) {
+
+    assign(deparse(substitute(lista)), listita, envir = .GlobalEnv)
+
+  } else {
+
+    lista <- listita
+
+    return(lista)
+
+  }
+
 }
