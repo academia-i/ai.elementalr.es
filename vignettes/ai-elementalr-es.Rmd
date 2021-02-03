@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 library(ai.elementalr.es)
 library(RefManageR)
 
-biblio<-ReadZotero(user=5861144, .params = list(tag="elementalr", key="8llZh4pNjprh8BZuvrhpmqdp" ), delete.file = FALSE)
+biblio<-ReadZotero(user=5861144, .params = list(tag="elementalr", key="gb603omy3OnQhQ6J77UYrr1p" ), delete.file = FALSE)
 WriteBib(biblio, file = "bibliografia.bib", biblatex = TRUE)
 
 ```
