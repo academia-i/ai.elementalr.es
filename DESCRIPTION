@@ -20,6 +20,8 @@ URL: https://academia-i.com/desarrollo/r/elementalr
 BugReports: https://github.com/academia-i/ai.elementalr.es/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+    qpdf
 Suggests: 
     knitr,
     rmarkdown,
@@ -29,7 +31,8 @@ Suggests:
     tidyr,
     tibble,
     scales,
-    qpdf,
+    RefManageR,
+    bibtex,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

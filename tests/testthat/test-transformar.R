@@ -1,5 +1,3 @@
-library(ai.elementalr.es)
-
 test_that("a_numeros works", {
   df <- data.frame("a" = as.character(10:15),
                    "b" = seq(50, 100, 10),

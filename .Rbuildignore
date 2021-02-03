@@ -1,3 +1,7 @@
 ^ai\.elementalr\.es\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^\.travis\.yml$
+^README\.Rmd$
+^\.github$
+^\.github/workflow$

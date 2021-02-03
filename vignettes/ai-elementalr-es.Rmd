@@ -1,9 +1,11 @@
 ---
 title: "Paquete de Funciones Elementales para R en español, desarrollado por Academia I"
-author: "Academia I"
-date: "`r format(Sys.time(), '%Y-%m-%d')`"
+author: "Daniel M. Gimenez"
+date: "2021-02-03"
 lang: es-ES
 output: rmarkdown::html_vignette
+bibliography: bibliografia.bib
+csl: apa-es.csl
 vignette: >
   %\VignetteIndexEntry{Paquete de Funciones Elementales para R en español, desarrollado por Academia I}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,18 +20,22 @@ knitr::opts_chunk$set(
 
 ```
 
-```{r cargar, eval=FALSE, echo=FALSE}
+```{r cargar, echo=FALSE, message=FALSE}
 library(ai.elementalr.es)
+library(RefManageR)
+
+biblio<-ReadZotero(user=5861144, .params = list(tag="elementalr", key="8llZh4pNjprh8BZuvrhpmqdp" ), delete.file = FALSE)
+WriteBib(biblio, file = "bibliografia.bib", biblatex = TRUE)
 
 ```
 
-# Resumen ejecutivo (versión TL;DR)
+# Resumen ejecutivo (versión tl;dr)
 
 Este paquete, desarrollado por Academia I con especial foco en quienes se inician en R, tiene tres propósitos:
 
 1. Aportar funciones de fácil escritura y memorización para realizar operaciones sencillas de manipulación y transformación de datos;
 
-2. Funciones "que sean fáciles de recordar" significa que sus nombres y argumentos están escritos en el idioma nativo de quien las usa; en este caso, el "español" (castellano).
+2. Funciones "que sean fáciles de recordar" significa, entre otras cosas, que sus nombres y argumentos están escritos en el idioma nativo de quien las usa; en este caso, el "español" (castellano).
 
 3. Que estas funciones sencillas y fáciles de recordar no tengan un costo en rendimiento y tiempo de ejecución.
 
@@ -38,9 +44,7 @@ Su objetivo es que las personas que comienzan a trabajar con R y necesitan manip
 Para entender la forma en que el paquete simplifica el desarrollo de código, obsérvese cómo se hace exactamente un mismo conjunto de manipulaciones y transformaciones de datos en un data frame primero con el código de R base y luego con el código de `ai.elementalr.es`.
 
 ```{r resumen, message=FALSE}
-
 # El modo tradicional: R Base
-
 data(mtcars)
 head(mtcars)
 
@@ -56,7 +60,6 @@ mtcars[is.na(mtcars)] <- 0
 
 
 # Las mismas transformaciones con ai.elementalr.es en un pipe:
-
 library("tidyverse")
 library("ai.elementalr.es")
 
@@ -69,8 +72,9 @@ mtcars <- a_caracteres(mtcars, 1:5) %>%
   a_caracteres((NCOL(mtcars)-2):NCOL(mtcars)) %>% 
   formatear_num(columnas = c("wt", "qsec"), decs = 2, sep_decs = ",") %>%
   a_cero()
-
 ```
+
+La diferencia en facilidad de escritura, lectura y memorización entre ambos códigos es autoevidente y no requiere mayores comentarios.
 
 El tiempo de ejecución de ambos códigos es muy similar. Sin embargo, el segundo, con las funciones de `ai.elementalr.es`, es significativamente más simple y fácil de memorizar.
 
@@ -106,7 +110,7 @@ El formato de código de la base de R tiene las propiedades del lenguaje de prog
 
 El formato desarrollado por Hadley Wickham y su equipo, que se encuentra en los paquetes de `tidyverse`, tiene dos pilares: el uso del "pipe" (el encademaniento de funciones a través del símbolo "%>%") y una semántica más centrada en la forma en que los/as seres humanos/as nos comunicamos. Las funciones de sus paquetes (y los argumentos de las funciones) están bautizadas con nombres tomados de verbos del habla cotidiana y están cargados de significado para un/a usuario/a angloparlante; por lo tanto, para cualquiera que domine el inglés, son fáciles de recordar cuando se está escribiendo un código.
 
-Ambos formatos tienen sus ventajas. Mientras el de la base de R es de ejecución rápida y permite estructurar y encadenar lógicamente las instrucciones de programación, el de `tidyverse` permite hacerlo significativamente, con criterios semánticos, con lenguaje propio de la comunicación entre seres humanos. De hecho, uno de los principios que guía el desarrollo del código de `tidyverse` es precisamente que [se escriba "para humanos"](https://tidyverse.tidyverse.org/articles/manifesto.html#design-for-humans-1).
+Ambos formatos tienen sus ventajas. Mientras el de la base de R es de ejecución rápida y permite estructurar y encadenar lógicamente las instrucciones de programación, el de `tidyverse` permite hacerlo significativamente, con criterios semánticos, con lenguaje propio de la comunicación entre seres humanos. De hecho, uno de los principios que guía el desarrollo del código de `tidyverse` es precisamente que <a href="https://tidyverse.tidyverse.org/articles/manifesto.html#design-for-humans-1" rel="nofollow">se escriba "para humanos</a>, que sea «...centrado en humanos/as» [@wickham-2019, pág. 4].
 
 Cada formato tiene también sus desventajas. Y aunque no son pocas, hay dos que son especialmente importantes: el anglocentrismo y la complejidad. El anglocentrismo no requiere mucha explicación: todas las funciones de la base y de `tidyverse`, todos los términos usados para que R pueda ejecutar instrucciones, están en inglés. Aunque no es un requisito tener competencias angloparlantes, los/as usuarios/as de R que no hablen inglés tienen mayores dificultades aprendiendo, memorizando y buscando documentación y ayuda que quienes lo dominan fluidamente.
 
@@ -115,7 +119,6 @@ La segunda desventaja, la complejidad, consiste en la necesidad de escribir cód
 Para entender este problema, obsérvese lo que requiere y demanda convertir el tipo de dato de la columna de un data frame a caracteres. Así se haría en el formato "base":
 
 ```{r base-caracter, message=FALSE}
-
 # Cargamos un data frame cualquiera y vemos qué datos tiene:
 data(mtcars)
 str(mtcars)
@@ -127,13 +130,11 @@ mtcars[,1:5] <- sapply(mtcars[,1:5], as.character)
 
 # Comprobamos qué columnas son vectores de caracteres
 which(sapply(mtcars, is.character) == T)
-
 ```
 
 Y de la siguiente forma se haría a través de `tidyverse`:
 
 ```{r tidy-caracter, message=FALSE}
-
 # Cargamos la librería
 library("tidyverse")
 
@@ -148,7 +149,6 @@ mtcars <- mutate(mtcars, across(1:5, as.character))
 
 # Comprobamos qué columnas son vectores de caracteres
 which(sapply(mtcars, is.character) == T)
-
 ```
 
 En casos sencillos, para manipulación y transformación de datos que no requieren más de una o dos líneas de código, cualquiera de las dos opciones basta y sobra. Pero la complejidad se presenta cuando es necesario seleccionar columnas con criterios más elaborados y/o encandenar varias manipulaciones y transformaciones. Intentemos la siguiente secuencia:
@@ -163,7 +163,6 @@ En casos sencillos, para manipulación y transformación de datos que no requier
 Este es el resultado con la base de R:
 
 ```{r base-compleja, message=FALSE}
-
 data(mtcars)
 head(mtcars)
 
@@ -178,13 +177,11 @@ mtcars[,c("wt", "qsec")] <-
 mtcars[is.na(mtcars)] <- 0 # 6.
 
 head(mtcars)
-
 ```
 
 Y se haría de la siguiente forma con `tidyverse`:
 
 ```{r tidy-compleja, message=FALSE}
-
 library("tidyverse")
 # Cargamos el paquete "scales" desarrollado por Hadley Wickham para modificar
 # la presentación de datos y etiquetas, fundamentalmente en gráficos:  
@@ -210,7 +207,6 @@ mtcars <- mutate(mtcars, across(1:5, as.character)) %>% # 1.
   mutate(across(1:NCOL(.), ~ replace_na(.x, 0))) # 6.
 
 head(mtcars)
-
 ```
 
 La complejidad de ambas formas de realizar las operaciones salta a la vista. En el caso de la base, el código es difícil de leer. Eso supone que también es difícil de escribir. Y como las transformaciones se aplican a columnas especificas, no es posible encadenar todas las funciones en una única línea de código, lo que tampoco aporta a la economía de escritura propia de los lenguajes de programación tradicional como el de R base.
@@ -258,7 +254,6 @@ mtcars <- formatear_num(mtcars, columnas = c("wt", "qsec"),
 mtcars <- a_cero(mtcars) # 6.
 
 head(mtcars)
-
 ```
 
 Como se puede apreciar, la escritura del código se ha simplificado de forma significativa. Y lo que hace cada función se explica fácilmente sólo leyendo el nombre.
@@ -286,7 +281,6 @@ mtcars <- a_cero( # 6.
 )
 
 head(mtcars)
-
 ```
 
 Esta forma de escribir las funciones optimiza el tiempo de ejecución ligeramente, pero complejiza de forma significativa la escritura y lectura del código. Aunque es posible y hasta más cómodo para quien esté habituado a trabajar con el formato de la base de R, probablemente para la mayor parte de usuarios/as la ligera ganancia en tiempo de ejecución no amerite la dificultad.
@@ -308,7 +302,6 @@ mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
   a_cero() # 6.
 
 head(mtcars)
-
 ```
 
 Esta última es la forma más sencilla de usar las funciones del paquete. Y su desempeño en tiempo de ejecución es uno de los mejores. En definitiva, en un encadenamiento a través del pipe, las funciones del paquete son aún más sencillas de escribir (de leer, de recordar) que las de `tidyverse`, y, como se ve en el siguiente acápite, no tienen sus limitaciones de desempeño.
@@ -320,31 +313,23 @@ El primer gran criterio que ha guiado el desarrollo de las funciones del present
 Esta función realiza la tarea simple de agregar elementos a una lista. Pero hace en una única línea de código las operaciones que de otro modo tomarían tres líneas. Imaginemos que tenemos un objeto (data frame, vector, lista) con un pequeño inventario de nuestros libros. Se va a llamar `libros`:
 
 ```{r mis-libros, message=FALSE}
-
 mis_libros <- c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's ashes")
-
 ```
 
 Luego nos damos cuenta que sería bueno tener todos los inventarios organizados en una lista, que se llamará `mis_cosas`. Si queremos agregar el inventario de libros, tendríamos que ejecutar el siguiente código:
 
 ```{r mis-cosas-trad, message=FALSE}
-
 # Creamos primero la lista
-
 mis_cosas <- list()
 
 # Agregamos luego el objeto con el inventario de libros:
-
 mis_cosas <- c(mis_cosas, list(mis_libros))
-
 ```
 
 Ahora tenemos la lista que queríamos crear. Pero tenemos los datos de los libros duplicado en la lista y en el objeto original fuera de la lista, en el entorno global. Para ordenar nuestro entorno de trabajo, eliminamos el objeto original:
 
 ```{r rm-libros, message=FALSE}
-
 rm(mis_libros)
-
 ```
 
 Con tres líneas de código quedó creada nuestra lista y despejado nuestro `GlobalEnv`.
@@ -352,34 +337,28 @@ Con tres líneas de código quedó creada nuestra lista y despejado nuestro `Glo
 `listar()` hace estas tres cosas en una sola línea de código: crea la lista si no existe, agrega el objeto al principio o al final de la lista, y elimina del entorno global el objeto agregado si así se desea. Todas las instrucciones anteriores quedarían resumidas a lo siguiente:
 
 ```{r listar, message=FALSE}
-
 # Eliminemos primero el objeto "mis_cosas" del entorno global para apreciar como trabaja `listar()`
-
 rm(mis_cosas)
 
 # Creamos el objeto, que fue eliminado en el ejemplo anterior:
-
 mis_libros <- c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's Ashes")
 
 # Ahora creamos la lista, añadimos el objeto y lo eliminamos del entorno global, en una sola instrucción
-
 listar(lista = mis_cosas, obj = mis_libros, rm = T)
-
-
 ```
 
 Para añadir nuevos objetos, sólo deben crearse y con otra línea de código de listar quedan integrados:
 
 ```{r listarmas, message=FALSE}
-
 # Creamos nuevo objeto
-
 mis_vinilos <- c("Abbey Road", "Kind of blue", "Nevermind",
      "Bigger, better, faster, more", "Parte de la religión")
 
 
-# Agregamos a la lista, en el primer lugar y eliminamos el objeto del entorno global para que no esté duplicado
-
+# Agregamos a la lista, en el primer lugar y eliminamos el objeto del entorno
+# global para que no esté duplicado
 mis_cosas <- listar(mis_cosas, mis_vinilos, pos = 1, rm = T)
-
 ```
+
+
+## Referencias
