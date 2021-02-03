@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 # ai.elementalr.es
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/academia-i/ai.elementalr.es/workflows/R-CMD-check/badge.svg)](https://github.com/academia-i/ai.elementalr.es/actions)
+![R](https://github.com/academia-i/ai.elementalr.es/workflows/R/badge.svg)
 <!-- badges: end -->
 
 Bienvenides al paquetes de funciones elementales desarrollado por Academia I (AI).
@@ -49,7 +49,9 @@ Empieza a usar las funciones del paquete. Para enteder qué hacen (y por qué), 
 
 ``` r
 
-vignette("ai.elementalr.es")
+vignette("ai-elementalr-es")
+# Nótese que aquí 👆 los elementos del nombre del paquete
+# se separan con guiones
 
 ```
 

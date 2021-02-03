@@ -7,7 +7,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/academia-i/ai.elementalr.es/workflows/R-CMD-check/badge.svg)](https://github.com/academia-i/ai.elementalr.es/actions)
+![R](https://github.com/academia-i/ai.elementalr.es/workflows/R/badge.svg)
 <!-- badges: end -->
 
 Bienvenides al paquetes de funciones elementales desarrollado por
@@ -51,7 +51,9 @@ qué), puedes leer la viñeta que lo acompaña. Para ello debes ejecutar el
 siguiente comando:
 
 ``` r
-vignette("ai.elementalr.es")
+vignette("ai-elementalr-es")
+# Nótese que aquí 👆 los elementos del nombre del paquete
+# se separan con guiones
 ```
 
 ## Ejemplo

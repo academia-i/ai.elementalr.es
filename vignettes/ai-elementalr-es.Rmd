@@ -280,7 +280,7 @@ mtcars <- a_cero( # 6.
     # 6.
 )
 
-head(mtcars)
+str(mtcars)
 ```
 
 Esta forma de escribir las funciones optimiza el tiempo de ejecución ligeramente, pero complejiza de forma significativa la escritura y lectura del código. Aunque es posible y hasta más cómodo para quien esté habituado a trabajar con el formato de la base de R, probablemente para la mayor parte de usuarios/as la ligera ganancia en tiempo de ejecución no amerite la dificultad.
@@ -292,7 +292,7 @@ library("tidyverse")
 library("ai.elementalr.es")
 
 data(mtcars)
-head(mtcars)
+str(mtcars)
 
 mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
   a_numeros(2:5) %>%  # 2.
@@ -301,7 +301,7 @@ mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
   formatear_num(columnas = c("wt", "qsec"), decs = 2, sep_decs = ",") %>% # 5.
   a_cero() # 6.
 
-head(mtcars)
+str(mtcars)
 ```
 
 Esta última es la forma más sencilla de usar las funciones del paquete. Y su desempeño en tiempo de ejecución es uno de los mejores. En definitiva, en un encadenamiento a través del pipe, las funciones del paquete son aún más sencillas de escribir (de leer, de recordar) que las de `tidyverse`, y, como se ve en el siguiente acápite, no tienen sus limitaciones de desempeño.
@@ -337,13 +337,15 @@ Con tres líneas de código quedó creada nuestra lista y despejado nuestro `Glo
 `listar()` hace estas tres cosas en una sola línea de código: crea la lista si no existe, agrega el objeto al principio o al final de la lista, y elimina del entorno global el objeto agregado si así se desea. Todas las instrucciones anteriores quedarían resumidas a lo siguiente:
 
 ```{r listar, message=FALSE}
-# Eliminemos primero el objeto "mis_cosas" del entorno global para apreciar como trabaja `listar()`
+# Eliminemos primero el objeto "mis_cosas" del entorno global
+# para apreciar cómo trabaja `listar()`
 rm(mis_cosas)
 
 # Creamos el objeto, que fue eliminado en el ejemplo anterior:
 mis_libros <- c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's Ashes")
 
-# Ahora creamos la lista, añadimos el objeto y lo eliminamos del entorno global, en una sola instrucción
+# Ahora creamos la lista, añadimos el objeto y
+# lo eliminamos del entorno global, en una sola instrucción
 listar(lista = mis_cosas, obj = mis_libros, rm = T)
 ```
 
@@ -361,4 +363,4 @@ mis_cosas <- listar(mis_cosas, mis_vinilos, pos = 1, rm = T)
 ```
 
 
-## Referencias
+# Referencias
