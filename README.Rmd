@@ -23,13 +23,13 @@ knitr::opts_chunk$set(
 
 Bienvenides al paquetes de funciones elementales desarrollado por Academia I (AI).
 
-Las funciones de este paquete han sido creadas y desarrolladas para quienes se inician en `R` y necesitan empezar a manipular datos sin tener que memorizar largas instrucciones ni buscar cómo soluciones para redactarlas, la mayoría de las cuales se encuentran en inglés.
+Las funciones de este paquete han sido creadas y desarrolladas para quienes se inician en `R` y necesitan empezar a manipular datos sin tener que memorizar largas instrucciones ni buscar cómo redactarlas, instrucciones que en su totalidad se encuentran en inglés.
 
 Esta versión de las funciones elementales de AI se encuentra en español (castellano en estricto rigor; no existe el idioma "español") para facilitar la iniciación en `R` de la comunidad castizoparlante.
 
 There is an English version at https://github.com/academia-i/ai.elementalr.en.
 
-Se recomienda dejar de usar progresivamente este paquete a medida que se adquiera mayor experiencia y conocimiento del lenguaje de programación de `R` y su mecánica básica. Mientras tanto, es una herramienta útil para lidiar con problemas básicos de manipulación y transformación de datos en data frames.
+Se recomienda dejar de usar progresivamente este paquete a medida que se adquiera mayor experiencia y conocimiento del lenguaje de programación de `R` y su mecánica básica. Mientras tanto, es una herramienta útil para lidiar con problemas básicos de manipulación de objetos y transformaciones de datos en data frames.
 
 ## Instalación
 
@@ -50,8 +50,7 @@ Empieza a usar las funciones del paquete. Para enteder qué hacen (y por qué), 
 ``` r
 
 vignette("ai-elementalr-es")
-# Nótese que aquí 👆 los elementos del nombre del paquete
-# se separan con guiones
+# Nótese que aquí 👆 los elementos del nombre del paquete se separan con guiones
 
 ```
 
@@ -72,6 +71,7 @@ Así se realizarían con las funciones de la base de R:
 data(mtcars)
 str(mtcars)
 
+# El largo y enrevesado código de R base
 mtcars[,1:5] <- sapply(mtcars[,1:5], as.character) # 1. 
 mtcars[,2:5] <- sapply(mtcars[,2:5], as.numeric) # 2.
 mtcars[,1] <- NA # 3.
@@ -95,6 +95,7 @@ library("ai.elementalr.es")
 data(mtcars)
 str(mtcars)
 
+# El simple y fácil de recordar código de ai.elementalr.es
 mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
   a_numeros(2:5) %>%  # 2.
   a_nas(1) %>%  # 3.

@@ -15,8 +15,8 @@ Academia I (AI).
 
 Las funciones de este paquete han sido creadas y desarrolladas para
 quienes se inician en `R` y necesitan empezar a manipular datos sin
-tener que memorizar largas instrucciones ni buscar cómo soluciones para
-redactarlas, la mayoría de las cuales se encuentran en inglés.
+tener que memorizar largas instrucciones ni buscar cómo redactarlas,
+instrucciones que en su totalidad se encuentran en inglés.
 
 Esta versión de las funciones elementales de AI se encuentra en español
 (castellano en estricto rigor; no existe el idioma “español”) para
@@ -28,8 +28,8 @@ There is an English version at
 Se recomienda dejar de usar progresivamente este paquete a medida que se
 adquiera mayor experiencia y conocimiento del lenguaje de programación
 de `R` y su mecánica básica. Mientras tanto, es una herramienta útil
-para lidiar con problemas básicos de manipulación y transformación de
-datos en data frames.
+para lidiar con problemas básicos de manipulación de objetos y
+transformaciones de datos en data frames.
 
 ## Instalación
 
@@ -52,8 +52,7 @@ siguiente comando:
 
 ``` r
 vignette("ai-elementalr-es")
-# Nótese que aquí 👆 los elementos del nombre del paquete
-# se separan con guiones
+# Nótese que aquí 👆 los elementos del nombre del paquete se separan con guiones
 ```
 
 ## Ejemplo
@@ -90,6 +89,7 @@ str(mtcars)
 #>  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 #>  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
 
+# El largo y enrevesado código de R base
 mtcars[,1:5] <- sapply(mtcars[,1:5], as.character) # 1. 
 mtcars[,2:5] <- sapply(mtcars[,2:5], as.numeric) # 2.
 mtcars[,1] <- NA # 3.
@@ -138,6 +138,7 @@ str(mtcars)
 #>  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 #>  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
 
+# El simple y fácil de recordar código de ai.elementalr.es
 mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
   a_numeros(2:5) %>%  # 2.
   a_nas(1) %>%  # 3.
