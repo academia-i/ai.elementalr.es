@@ -16,7 +16,8 @@ Academia I (AI).
 Las funciones de este paquete han sido creadas y desarrolladas para
 quienes se inician en `R` y necesitan empezar a manipular datos sin
 tener que memorizar largas instrucciones ni buscar cómo redactarlas,
-instrucciones que en su totalidad se encuentran en inglés.
+instrucciones (y su respectiva documentación) que en su totalidad se
+encuentran en inglés.
 
 Esta versión de las funciones elementales de AI se encuentra en español
 (castellano en estricto rigor; no existe el idioma “español”) para
@@ -46,7 +47,7 @@ devtools::install_github("academia-i/ai.elementalr.es", build_vignettes = TRUE)
 
 ## ¿Qué sigue?
 
-Empieza a usar las funciones del paquete. Para enteder qué hacen (y por
+Empieza a usar las funciones del paquete. Para entender qué hacen (y por
 qué), puedes leer la viñeta que lo acompaña. Para ello debes ejecutar el
 siguiente comando:
 
@@ -57,10 +58,10 @@ vignette("ai-elementalr-es")
 
 ## Ejemplo
 
-A grandes rasgos, las funciones de este paquete simplican la
-manipulación de datos y objetos. Supongamos que queremos aplicar las
-siguiente secuencia de manipulación y transformaciones a los datos de la
-base `mtcars`:
+A grandes rasgos, las funciones de este paquete simplifican la
+manipulación de datos y objetos. Supongamos que queremos aplicar la
+siguiente secuencia de manipulación y transformaciones a los datos a
+`mtcars`:
 
 1.  Transformar a caracteres las primeras cinco columnas;
 2.  Revertir la transformación para todas menos la primera;
@@ -164,5 +165,6 @@ str(mtcars)
 
 ## Información adicional
 
-Puedes encontrar más información sobre el uso y alcance del paquete en
-su página oficial: <https://academia-i.com/desarrollo/r/elementalr>
+Puedes encontrar más información sobre el uso, las otras funciones y
+alcance del paquete en su página oficial:
+<https://academia-i.com/desarrollo/r/elementalr>
