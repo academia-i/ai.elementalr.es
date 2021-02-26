@@ -6,17 +6,28 @@
 #'   esta función `%notin%` arroja `TRUE` si el elemento **no se encuentra** en
 #'   el vector.
 #'
-#' @param x **Valor o elemento numérico o de caracter**. Es el que se requiere
+#' @param x **Vector, valor o elemento numérico o de caracter**. Es el que se requiere
 #'   determinar si se encuentra en el vector `y`.
 #' @param y **Vector**. Es al que se pregunta si no contiene el valor o elemento
 #'   `x`.
 #'
-#' @return Valor lógico **`TRUE`** o **`FALSE`**.
+#' @return Vector con valores lógico **`TRUE`** o **`FALSE`**. La cantidad de valores
+#'   será igual a la longitud de x. Si la longitud es igual a 1 (ej: x <- 5), el
+#'   resultado será un único valor lógico, `TRUE` o `FALSE`. Si es mayor a 1, el
+#'   resultado será un vector de valores lógicos de la longitud de x. Ejemplo:
+#'
+#'  `(1:3) %notin% c(1,10)`
+#'
+#'  dará como resultado:
+#'
+#'  `FALSE TRUE TRUE`.
 #'
 #' @details El paquete `Hmisc` contiene la función \code{\link[Hmisc]{%nin%}}
 #'  que hace la misma operación: determinar si un valor o elemento no se
 #'  encuentra en un vector. Su nombre, sin embargo, es poco intuitivo y se
 #'  demora el doble de tiempo en ejecutar la misma operación.
+#'
+#' @author La función fue tomada de una respuesta de \href{https://stackoverflow.com/questions/38351820/negation-of-in-in-r}{stackoverflow}.
 #'
 #' @export
 #'
@@ -87,6 +98,9 @@ que.es <- function(x) {
   }
   else if (is.data.frame(x)) {
     cat("Es DATA FRAME")
+  }
+  else if (is.primitive(x)) {
+    cat("Es una FUNCI\u00d3N PRIMITIVA")
   }
   else if (is.function(x)) {
     cat("Es una FUNCI\u00d3N")
@@ -175,7 +189,7 @@ listar <- function(lista, obj, pos = 0, rm = T) {
 
   if(!exists(deparse(substitute(lista)))) {
 
-    assign(deparse(substitute(lista)), listita, envir = .GlobalEnv)
+    assign(deparse(substitute(lista)), listita, envir = sys.frame(which = -1))
 
   } else {
 

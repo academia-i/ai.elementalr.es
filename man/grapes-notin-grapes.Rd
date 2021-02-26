@@ -7,14 +7,23 @@
 x \%notin\% y
 }
 \arguments{
-\item{x}{\strong{Valor o elemento numérico o de caracter}. Es el que se requiere
+\item{x}{\strong{Vector, valor o elemento numérico o de caracter}. Es el que se requiere
 determinar si se encuentra en el vector \code{y}.}
 
 \item{y}{\strong{Vector}. Es al que se pregunta si no contiene el valor o elemento
 \code{x}.}
 }
 \value{
-Valor lógico \strong{\code{TRUE}} o \strong{\code{FALSE}}.
+Vector con valores lógico \strong{\code{TRUE}} o \strong{\code{FALSE}}. La cantidad de valores
+será igual a la longitud de x. Si la longitud es igual a 1 (ej: x <- 5), el
+resultado será un único valor lógico, \code{TRUE} o \code{FALSE}. Si es mayor a 1, el
+resultado será un vector de valores lógicos de la longitud de x. Ejemplo:
+
+\code{(1:3) \%notin\% c(1,10)}
+
+dará como resultado:
+
+\verb{FALSE TRUE TRUE}.
 }
 \description{
 Determina si un valor o elemento dado \strong{no se encuentra} en un
@@ -39,4 +48,7 @@ demora el doble de tiempo en ejecutar la misma operación.
 # Al igual que `\%in\%`, `\%notin\%` tiene gran utilidad en el control de flujo:
   dias <- weekdays(x=as.Date(seq(6), origin="1950-01-01"))
   if ("domingo" \%notin\% dias) dias <- c(dias, "domingo")
+}
+\author{
+La función fue tomada de una respuesta de \href{https://stackoverflow.com/questions/38351820/negation-of-in-in-r}{stackoverflow}.
 }

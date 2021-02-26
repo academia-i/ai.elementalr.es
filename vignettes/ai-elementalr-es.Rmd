@@ -33,7 +33,7 @@ WriteBib(biblio, file = "bibliografia.bib", biblatex = TRUE)
 
 Este paquete, desarrollado por Academia I con especial foco en quienes se inician en R, tiene tres propósitos:
 
-1. Aportar funciones de fácil escritura y memorización para realizar operaciones sencillas de manipulación y transformación de datos;
+1. Aportar funciones de fácil escritura y memorización para realizar operaciones sencillas de manipulación y transformación de objetos y datos;
 
 2. Funciones "que sean fáciles de recordar" significa, entre otras cosas, que sus nombres y argumentos están escritos en el idioma nativo de quien las usa; en este caso, el "español" (castellano).
 
@@ -46,7 +46,7 @@ Para entender la forma en que el paquete simplifica el desarrollo de código, ob
 ```{r resumen, message=FALSE}
 # El modo tradicional: R Base
 data(mtcars)
-head(mtcars)
+str(mtcars)
 
 mtcars[,1:5] <- sapply(mtcars[,1:5], as.character) 
 mtcars[,2:5] <- sapply(mtcars[,2:5], as.numeric)
@@ -54,7 +54,7 @@ mtcars[,1] <- NA
 mtcars[,(NCOL(mtcars)-2):NCOL(mtcars)] <-
   sapply(mtcars[,(NCOL(mtcars)-2):NCOL(mtcars)], as.character) 
 mtcars[,c("wt", "qsec")] <- 
-  format(round(mtcars[,c("wt", "qsec")], digits = 2), nsmall = 2,
+  format(round(mtcars[,c("wt", "qsec")], digits = 2), nsmall = 3,
         decimal.mark = ",") 
 mtcars[is.na(mtcars)] <- 0 
 
@@ -64,7 +64,7 @@ library("tidyverse")
 library("ai.elementalr.es")
 
 data(mtcars)
-head(mtcars)
+str(mtcars)
 
 mtcars <- a_caracteres(mtcars, 1:5) %>%
   a_numeros(2:5) %>%
@@ -77,6 +77,10 @@ mtcars <- a_caracteres(mtcars, 1:5) %>%
 La diferencia en facilidad de escritura, lectura y memorización entre ambos códigos es autoevidente y no requiere mayores comentarios.
 
 El tiempo de ejecución de ambos códigos es muy similar. Sin embargo, el segundo, con las funciones de `ai.elementalr.es`, es significativamente más simple y fácil de memorizar.
+
+El paquete está compuesto por otras funciones que realizan otro tipo de transformaciones de objetos y datos. Todas siguen los mismos principios de facilidad de escritura, lectura y memorización, y de eficiencia de ejecución. En otras además se aplica un tercer principio: economía de código. 
+
+Es recomendable abandonar poco a poco las funciones de este paquete que manipulan y transforman data frames. Tienen utilidad para quienes se inician en `R`. Pero una mayor familiaridad con el lenguaje debiera facilitar el uso de las funciones de la base o de `tidyverse`, que son más flexibles y permiten mayor cantidad de operaciones.
 
 <br /><br />
 
@@ -140,7 +144,6 @@ library("tidyverse")
 
 # Cargamos el data frame cualquiera y vemos qué datos tiene:
 data(mtcars)
-str(mtcars)
 
 # Todas las columnas son vectores numéricos.
 
@@ -164,7 +167,6 @@ Este es el resultado con la base de R:
 
 ```{r base-compleja, message=FALSE}
 data(mtcars)
-head(mtcars)
 
 mtcars[,1:5] <- sapply(mtcars[,1:5], as.character) # 1. 
 mtcars[,2:5] <- sapply(mtcars[,2:5], as.numeric) # 2.
@@ -176,7 +178,7 @@ mtcars[,c("wt", "qsec")] <-
         decimal.mark = ",") # 5.
 mtcars[is.na(mtcars)] <- 0 # 6.
 
-head(mtcars)
+str(mtcars)
 ```
 
 Y se haría de la siguiente forma con `tidyverse`:
@@ -188,7 +190,6 @@ library("tidyverse")
 library("scales")
 
 data(mtcars)
-head(mtcars)
 
 # Asignamos primero los nombres de las filas a una columna nueva ("marca")
 # para que no se pierdan con el procesamiento de dyplr:
@@ -206,7 +207,7 @@ mtcars <- mutate(mtcars, across(1:5, as.character)) %>% # 1.
                                           accuracy = 0.01))) %>% # 5.
   mutate(across(1:NCOL(.), ~ replace_na(.x, 0))) # 6.
 
-head(mtcars)
+str(mtcars)
 ```
 
 La complejidad de ambas formas de realizar las operaciones salta a la vista. En el caso de la base, el código es difícil de leer. Eso supone que también es difícil de escribir. Y como las transformaciones se aplican a columnas especificas, no es posible encadenar todas las funciones en una única línea de código, lo que tampoco aporta a la economía de escritura propia de los lenguajes de programación tradicional como el de R base.
@@ -215,11 +216,11 @@ Tidverse, por su parte, en apariencia subsana el problema con un código más le
 
 Estos auxiliares y las fórmulas son herramientas eficaces y muy prácticas para manipular y aplicar transformaciones a datos que se tienen que seleccionar en base a criterios granulares y complejos. Son muy útiles, por ejemplo, si se usan en conjunto con expresiones regulares. Pero añaden una dificultad de recordación y escritura innecesaria para manipulaciones y transformaciones muy simples, como, por ejemplo, cambiar la clase de los datos de las columnas. Estas transformaciones simples, que se realizan con alguna frecuencia al comenzar a trabajar en R, exigirían dominar y memorizar un código excesivamente extenso y complejo. La desproporción entre un código complejo, recargado, extenso para resultados tan simples no aporta a aligerar la curva de aprendizaje.
 
-Hay, finalmente, una importante desventaja en el procesamiento a través de funciones de `tidyverse`: el tiempo de ejecución. En efecto, ejecutar esta secuencia de tareas en R base toma entre 3 y 10 veces menos tiempo que a través de `tidyverse`. En cualquier caso, estamos hablando de que con el código de la base toma aproximadamente 0,015 segundos mientras que con `tidyverse` toma 0,075 (ejecutados en un script; en chunks de `rmardown` los tiempos pueden variar). En un único data frame la diferencia es completamente imperceptible. Pero piénsese qué ocurriría con un script que tuviera que procesar 10.000 data frames. O 100.000. En este último caso estaríamos hablando de una relación de 26 minutos y 33 segundos (con R base) a 2 horas y 6 minutos (con `tidyverse`). 
+Hay, finalmente, una importante desventaja en el procesamiento a través de funciones de `tidyverse`: el tiempo de ejecución. En efecto, ejecutar esta secuencia de tareas en R base toma entre 4 y 20 veces menos tiempo que a través de `tidyverse` (ejecutados en un script; en chunks de `rmardown` los tiempos pueden variar). En un único data frame la diferencia es completamente imperceptible. Pero piénsese qué ocurriría con un script que tuviera que procesar 10.000 data frames. O 100.000. En este último caso estaríamos hablando de una relación de 20 minutos de procesamiento con `tidyverse`, la formulación más fácil del código, por cada 1 minuto de procesamiento con R base, la más difícil y enrevesada. 
 
 En resumen, entonces, en el estado actual del desarrollo de R, la realización de operaciones muy simples de manipulación y transformación de datos presenta tres problemas:
 
-1. **Provincialismo**: en cualquiera de los dos formatos hoy dominantes, los nombres de las funciones están en inglés; no son amigables para quienes no están familiarizado con el idioma;
+1. **Provincialismo**: en cualquiera de los dos formatos hoy dominantes, los nombres de las funciones están en inglés; no son amigables para quienes no están familiarizado con el idioma; tampoco la documentación, oficial y no oficial;
 
 2. **Complejidad**: se requieren códigos extensos y recargados, que no guardan ninguna proporción con la simpleza de los resultados;
 
@@ -235,7 +236,7 @@ El presente paquete trata de dar una respuesta a los tres problemas:
 
 2. Las funciones son ["wrappers"](https://developer.mozilla.org/es/docs/Glossary/Wrapper) simples de otras funciones complejas. La simplificación se produce fundamental aunque no exclusivamente en la estructura de los argumentos;
 
-3. Las funciones han sido escritas con el cuidado de que la facilidad de escritura y memorización no se traduzca en un costo en desempeño.
+3. Las funciones han sido escritas a partir de R base y con el cuidado de que la facilidad de escritura y memorización no se traduzca en un costo en desempeño.
 
 Con las funciones del paquete, las seis transformaciones se realizarían de la siguiente forma usando las funciones sin pipe:
 
@@ -243,7 +244,6 @@ Con las funciones del paquete, las seis transformaciones se realizarían de la s
 library("ai.elementalr.es")
 
 data(mtcars)
-head(mtcars)
 
 mtcars <- a_caracteres(mtcars, 1:5) # 1.
 mtcars <- a_numeros(mtcars, 2:5) # 2.
@@ -258,14 +258,13 @@ head(mtcars)
 
 Como se puede apreciar, la escritura del código se ha simplificado de forma significativa. Y lo que hace cada función se explica fácilmente sólo leyendo el nombre.
 
-Pero esa no es la única forma de escribir el código. Hay una más eficiente y una más sencilla. La eficiente es, en el marco de la sintaxis de la base de R, encadenando todas las funciones en una única instrucción:
+Pero esa no es la única forma de escribir el código. Hay una más eficiente y otra más sencilla. La eficiente es, en el marco de la sintaxis de la base de R, encadenando todas las funciones en una única instrucción, algo que no se podía sin este paquete debido a que cada transformación se realiza sobre partes distintas del data frame. Con las funciones de `ai.elementalr.es` quedaría así:
 
 
 ```{r base-elementalr-chained, message=FALSE}
 library("ai.elementalr.es")
 
 data(mtcars)
-head(mtcars)
 
 mtcars <- a_cero( # 6.
     formatear_num( # 5. 
@@ -292,7 +291,6 @@ library("tidyverse")
 library("ai.elementalr.es")
 
 data(mtcars)
-str(mtcars)
 
 mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
   a_numeros(2:5) %>%  # 2.
@@ -355,7 +353,6 @@ Para añadir nuevos objetos, sólo deben crearse y con otra línea de código de
 # Creamos nuevo objeto
 mis_vinilos <- c("Abbey Road", "Kind of blue", "Nevermind",
      "Bigger, better, faster, more", "Parte de la religión")
-
 
 # Agregamos a la lista, en el primer lugar y eliminamos el objeto del entorno
 # global para que no esté duplicado
