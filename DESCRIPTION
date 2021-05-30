@@ -21,10 +21,10 @@ BugReports: https://github.com/academia-i/ai.elementalr.es/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
+    tidyverse
 Suggests: 
     knitr,
     rmarkdown,
-    tidyverse,
     dplyr,
     magrittr,
     tidyr,
