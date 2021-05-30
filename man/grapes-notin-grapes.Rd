@@ -2,6 +2,7 @@
 % Please edit documentation in R/basicas.R
 \name{\%notin\%}
 \alias{\%notin\%}
+\alias{notin}
 \title{¿No está en un vector?}
 \usage{
 x \%notin\% y
@@ -39,11 +40,11 @@ encuentra en un vector. Su nombre, sin embargo, es poco intuitivo y se
 demora el doble de tiempo en ejecutar la misma operación.
 }
 \examples{
-# Para saber si un valor o elemento de una función **si está** en un vector:
+# Para saber si un valor o elemento de una función \bold{si está} en un vector:
   "a" \%in\% letters # Resultado: TRUE, dado que "a" si está en el vector.
 
 # La función `\%notin\%` arroja el resultado contrario:
-  "a" \%notin\% letters # Resultado: FALSE
+  "a" \%notin\% letters # Resultado: FALSE´
 
 # Al igual que `\%in\%`, `\%notin\%` tiene gran utilidad en el control de flujo:
   dias <- weekdays(x=as.Date(seq(6), origin="1950-01-01"))

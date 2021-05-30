@@ -1,5 +1,7 @@
 #' ¿No está en un vector?
 #'
+#' @aliases notin
+#'
 #' @description Determina si un valor o elemento dado **no se encuentra** en un
 #'   vector. Es la negación de la función \code{\link{%in%}}. La
 #'   función `%in%` arroja `TRUE` si el elemento está en el vector. En cambio,
@@ -32,11 +34,11 @@
 #' @export
 #'
 #' @examples
-#' # Para saber si un valor o elemento de una función **si está** en un vector:
+#' # Para saber si un valor o elemento de una función \bold{si está} en un vector:
 #'   "a" %in% letters # Resultado: TRUE, dado que "a" si está en el vector.
 #'
 #' # La función `%notin%` arroja el resultado contrario:
-#'   "a" %notin% letters # Resultado: FALSE
+#'   "a" %notin% letters # Resultado: FALSE´
 #'
 #' # Al igual que `%in%`, `%notin%` tiene gran utilidad en el control de flujo:
 #'   dias <- weekdays(x=as.Date(seq(6), origin="1950-01-01"))
@@ -71,7 +73,7 @@
 #' que.es(x)
 que.es <- function(x) {
   if (!exists(as.character(substitute(x)))) {
-    cat("No existe. No es un objeto definido o asignado. Def\u00ednelo primero con \"x <- algo \" ")
+    cat(x, " no existe. No es un objeto definido o asignado. Def\u00ednelo primero con \"", x, "<- algo \" ")
   }
   if (nargs() > 1) {
     cat("Se puede comprobar un \u00fanico objeto a la vez. Ingresa s\u00f3lo uno")
@@ -128,9 +130,11 @@ que.es <- function(x) {
 #' (GlobalEnv), la función creará una y le asignará el obejto.
 #' @param obj **Objeto de cualquier tipo**. Es necesario que exista previamente en
 #'   el entorno global (GlobalEnv).
-#' @param pos **Un número**. Puede asumir dos valores: **0** para que el objeto
-#'   quede al final de la lista (*predeterminado*); o **1** para que quede en el
-#'   primer lugar de la lista.
+#' @param pos **Un número**. Puede asumir dos valores:
+#'
+#'   - 0: la fila se añade al final la lista (por defecto);
+#'   - 1: la fila se añade al principio de la lista;
+#'
 #' @param rm **Valor lógico**. Si es `TRUE` (*predeterminado*), el objeto será eliminado del entorno
 #'   global (GlobalEnvir) después de ser agregado a la lista. Si es `FALSE`,
 #'   el objeto será añadido a la lista sin ser eliminado del entorno global.
@@ -141,16 +145,24 @@ que.es <- function(x) {
 #'   Si `listar()` se usa dentro de una función personalizada, debe definirse
 #'   `rm = FALSE`. De lo contrario, arrojará error.
 #'
+#'   Si `listar()` se usa múltiples veces en un pipe de `magrittr` (el `%>%`), sólo
+#'   añadirá el último objeto de la secuencia.
+#'
 #' @return Una *`lista`* con el *`obj`* incorporado en la posición indicada con el
 #'   argumento *`pos`*.
 #' @export
 #'
 #' @examples
+#'
+#' # Creamos primero una lista a la después se le agregarán elementos.
+#'
 #' mis_cosas <- list(
 #'    libros = c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's Ashes"),
 #'    vinilos = c("Abbey Road", "Kind of blue", "Nevermind",
 #'     "Bigger, better, faster, more", "Parte de la religión")
 #'   )
+#'
+#'  # Creamos después elementos para agregar a la lista
 #'
 #' computadoras <- c("Notebook", "Workstation", "Raspberry Pi")
 #'
@@ -189,7 +201,7 @@ listar <- function(lista, obj, pos = 0, rm = T) {
 
   if(!exists(deparse(substitute(lista)))) {
 
-    assign(deparse(substitute(lista)), listita, envir = sys.frame(which = -1))
+    assign(deparse(substitute(lista)), listita, envir = parent.frame(), inherits = TRUE )
 
   } else {
 

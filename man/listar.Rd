@@ -13,9 +13,11 @@ listar(lista, obj, pos = 0, rm = T)
 \item{obj}{\strong{Objeto de cualquier tipo}. Es necesario que exista previamente en
 el entorno global (GlobalEnv).}
 
-\item{pos}{\strong{Un número}. Puede asumir dos valores: \strong{0} para que el objeto
-quede al final de la lista (\emph{predeterminado}); o \strong{1} para que quede en el
-primer lugar de la lista.}
+\item{pos}{\strong{Un número}. Puede asumir dos valores:
+\itemize{
+\item 0: la fila se añade al final la lista (por defecto);
+\item 1: la fila se añade al principio de la lista;
+}}
 
 \item{rm}{\strong{Valor lógico}. Si es \code{TRUE} (\emph{predeterminado}), el objeto será eliminado del entorno
 global (GlobalEnvir) después de ser agregado a la lista. Si es \code{FALSE},
@@ -35,13 +37,21 @@ existir antes en el entorno global.
 
 Si \code{listar()} se usa dentro de una función personalizada, debe definirse
 \code{rm = FALSE}. De lo contrario, arrojará error.
+
+Si \code{listar()} se usa múltiples veces en un pipe de \code{magrittr} (el \verb{\%>\%}), sólo
+añadirá el último objeto de la secuencia.
 }
 \examples{
+
+# Creamos primero una lista a la después se le agregarán elementos.
+
 mis_cosas <- list(
    libros = c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's Ashes"),
    vinilos = c("Abbey Road", "Kind of blue", "Nevermind",
     "Bigger, better, faster, more", "Parte de la religión")
   )
+
+ # Creamos después elementos para agregar a la lista
 
 computadoras <- c("Notebook", "Workstation", "Raspberry Pi")
 
