@@ -100,7 +100,7 @@ Este nombre tiene varias implicancias. La primera es que el paquete forma parte 
 
 En segundo lugar, que sean funciones **elementales** significa que Academia I ofrece herramientas más especializadas y para tareas más sofisticadas. Te invitamos a visitar nuestro repositorio en github para conocer los otros desarrollos en los que estamos trabajando.
 
-Finalmente, que sea necesario recalcar que es un paquete para R significa que también trabajamos en el desarrollo de soluciones para otros lenguajes. Siempre que es posible y relevante, portamos el código de nuestros paquetes a Python y el de nuestros módulos  a R. 
+Finalmente, que sea necesario recalcar que es un paquete para R significa que también trabajamos en el desarrollo de soluciones para otros lenguajes. Siempre que es posible y relevante, portamos el código de nuestros paquetes a Python y el de nuestros módulos a R. 
 
 <br /><br />
 
@@ -118,7 +118,7 @@ Ambos formatos tienen sus ventajas. Mientras el de la base de R es de ejecución
 
 Cada formato tiene también sus desventajas. Y aunque no son pocas, hay dos que son especialmente importantes: el anglocentrismo y la complejidad. El anglocentrismo no requiere mucha explicación: todas las funciones de la base y de `tidyverse`, todos los términos usados para que R pueda ejecutar instrucciones, están en inglés. Aunque no es un requisito tener competencias angloparlantes, los/as usuarios/as de R que no hablen inglés tienen mayores dificultades aprendiendo, memorizando y buscando documentación y ayuda que quienes lo dominan fluidamente.
 
-La segunda desventaja, la complejidad, consiste en la necesidad de escribir código extenso, enrevesado y plagado de argumentos para realizar  operaciones muy simples. Es cierto que  `tidyverse` ha reducido la dificultad de programación en R gracias a un lenguaje y un mecanismo de encadenamiento de instrucciones muy acorde al funcionamiento de la comunicación humana. Pero eso no significa que la forma `tidyverse` de hacer las cosas sea más sencilla que la de la base. Una transformación simple en `tidyverse` requiere memorizar tantos argumentos complejos como en R base. En este caso, "facilidad" y "sencillez" no son sinónimos.
+La segunda desventaja, la complejidad, consiste en la necesidad de escribir código extenso, enrevesado y plagado de argumentos para realizar operaciones muy simples. Es cierto que `tidyverse` ha reducido la dificultad de programación en R gracias a un lenguaje y un mecanismo de encadenamiento de instrucciones muy acorde al funcionamiento de la comunicación humana. Pero eso no significa que la forma `tidyverse` de hacer las cosas sea más sencilla que la de la base. Una transformación simple en `tidyverse` requiere memorizar tantos argumentos complejos como en R base. En este caso, "facilidad" y "sencillez" no son sinónimos.
 
 Para entender este problema, obsérvese lo que requiere y demanda convertir el tipo de dato de la columna de un data frame a caracteres. Así se haría en el formato "base":
 
@@ -282,7 +282,7 @@ mtcars <- a_cero( # 6.
 str(mtcars)
 ```
 
-Esta forma de escribir las funciones optimiza el tiempo de ejecución ligeramente, pero complejiza de forma significativa la escritura y lectura del código. Aunque es posible y hasta más cómodo para quien esté habituado a trabajar con el formato de la base de R, probablemente para la mayor parte de usuarios/as la ligera ganancia en tiempo de ejecución no amerite la dificultad.
+Esta forma de escribir las funciones optimiza el tiempo de ejecución ligeramente, pero complejiza de forma significativa la escritura y lectura del código. Aunque es posible y hasta más cómodo para quien esté habituado a trabajar con el formato de la base de R, probablemente para la mayor parte de usuarios/as la ligera ganancia en tiempo de ejecución no amerite la dificultad de escritura y lectura.
 
 La forma más sencilla de incorporar estas funciones es escribiendo código en formato `tidyverse`, encadenando las funciones con el pipe:
 
@@ -302,13 +302,13 @@ mtcars <- a_caracteres(mtcars, 1:5) %>%  # 1.
 str(mtcars)
 ```
 
-Esta última es la forma más sencilla de usar las funciones del paquete. Y su desempeño en tiempo de ejecución es uno de los mejores. En definitiva, en un encadenamiento a través del pipe, las funciones del paquete son aún más sencillas de escribir (de leer, de recordar) que las de `tidyverse`, y, como se ve en el siguiente acápite, no tienen sus limitaciones de desempeño.
+Esta última es la forma más sencilla de usar las funciones de `ai.elementalr.es` Y su desempeño en tiempo de ejecución es uno de los mejores. En definitiva, en un encadenamiento a través del pipe, las funciones del paquete son aún más sencillas de escribir (de leer, de recordar) que las de `tidyverse`, y, como se ve en el siguiente acápite, no tienen sus limitaciones de desempeño.
 
 # `listar()`: la lógica de la simplificación
 
 El primer gran criterio que ha guiado el desarrollo de las funciones del presente paquete es la facilidad de uso. Pero no es el único. El segundo gran criterio ha sido la simplificación y la economía, y se puede apreciar en particular en la función `listar()`.
 
-Esta función realiza la tarea simple de agregar elementos a una lista. Pero hace en una única línea de código las operaciones que de otro modo tomarían tres líneas. Imaginemos que tenemos un objeto (data frame, vector, lista) con un pequeño inventario de nuestros libros. Se va a llamar `libros`:
+Esta función realiza la tarea simple de agregar elementos a una lista. Pero hace en una única línea de código las operaciones que de otro modo tomarían tres líneas. Imaginemos que tenemos un objeto (data frame, vector, lista) con un pequeño inventario de nuestros libros. Se va a llamar `mis_libros`:
 
 ```{r mis-libros, message=FALSE}
 mis_libros <- c("El péndulo de Foucault", "Germinal", "Artificios", "Angela's ashes")

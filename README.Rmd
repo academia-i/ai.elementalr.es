@@ -40,7 +40,7 @@ Para instalar este paquete deben ejecutarse las siguientes instrucciones en el t
 if(!require(devtools)) install.packages("devtools")
 
 # Instalamos el paquete desde github
-devtools::install_github("academia-i/ai.elementalr.es", build_vignettes = TRUE)
+devtools::install_github("academia-i/ai.elementalr.es", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 ## ¿Qué sigue?

@@ -21,7 +21,9 @@ BugReports: https://github.com/academia-i/ai.elementalr.es/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
-    tidyverse
+    tidyverse,
+    RefManageR,
+    bibtex
 Suggests: 
     knitr,
     rmarkdown,
@@ -30,10 +32,9 @@ Suggests:
     tidyr,
     tibble,
     scales,
-    RefManageR,
-    bibtex,
     utils,
     qpdf,
+    Hmisc,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
